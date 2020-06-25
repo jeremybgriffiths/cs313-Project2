@@ -1,4 +1,1 @@
-"scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-}
+web: node index.js
