@@ -29,8 +29,8 @@ function getPerson(request, response) {
       });
     } else {
       const person = result[0];
-      //response.status(200).json(person);
-      response.write("It worked");
+      console.log(person);
+      response.status(200).json(person);
     }
   });
 }
