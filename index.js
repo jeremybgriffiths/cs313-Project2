@@ -1,4 +1,6 @@
 const express = require('express');
+const axios = require('axios');
+
 const app = express();
 const path = require('path');
 require('dotenv').config();
@@ -14,34 +16,17 @@ const pool = new Pool({
   connectionString: connectionString
 });
 
-const getRecipes = (...ingredients) => {
-  const mappedIngredients = ingredients
-    .map((ingredient, idx) => {
-      if (idx < ingredients.length - 1) {
-        return ingredient + "+";
-      } else {
-        return ingredient;
-      }
-    })
-    .join("");
+const getRecipes = async (req, res) => {
+  const ingredient = req.query.ingredient;
 
-  const url = `${process.env.API_URL}${process.env.API_ID}${process.env.API_KEY}&q=${mappedIngredients}`;
-
-  fetch(url)
-    .then(response => response.json())
-    .then(recipes => {
-      console.log(recipes);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  const url = `${process.env.API_URL}${process.env.API_ID}${process.env.API_KEY}&&q=${ingredient}`;
+  const response = await axios.get(url);
+  res.json(response.data);
 }
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.get('/', (req, res) => res.render('index'));
+app.get('/', (req, res) => res.render('pages/index.ejs'));
 app.get('/getRecipes', getRecipes);
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
-getRecipes("zucchini", "broccoli", "carrots");
