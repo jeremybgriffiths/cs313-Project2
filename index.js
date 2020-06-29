@@ -21,8 +21,9 @@ const getRecipes = async (req, res) => {
 
   const url = `${process.env.API_URL}${process.env.API_ID}${process.env.API_KEY}&q=${ingredient}`;
   console.log(url);
+  const response = null;
   try {
-    const response = await axios.get(url);
+    response = await axios.get(url);
   }
   catch (error) {
     console.log(error);
