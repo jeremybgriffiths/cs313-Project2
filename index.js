@@ -16,19 +16,18 @@ const pool = new Pool({
   connectionString: connectionString
 });
 
-const getRecipes = async (req, res) => {
+const getRecipes = (req, res) => {
   const ingredient = req.query.ingredient;
 
   const url = `${process.env.API_URL}${process.env.API_ID}${process.env.API_KEY}&q=${ingredient}`;
   console.log(url);
-  const response = null;
-  try {
-    response = await axios.get(url);
-  }
-  catch (error) {
+  axios.get(url)
+  .then(response => {
+    res.status(200).json(response.data)
+  })
+  .catch(error => {
     console.log(error);
-  }
-  res.json(response.data);
+  });
 }
 
 app.use(express.static(path.join(__dirname, 'public')));
