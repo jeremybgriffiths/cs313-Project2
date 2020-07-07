@@ -13,30 +13,16 @@
 <body>
   <div class="container-fluid">
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Recipe Finder</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Features</a>
-            <a class="nav-item nav-link" href="#">Pricing</a>
-            <a class="nav-item nav-link disabled" href="#">Disabled</a>
-          </div>
-        </div>
-      </nav>
+      <h1 class="text-center">Recipe Finder</h1>
     </header>
     <div class="container">
-      <h2>Search for Recipes by Ingredient</h2>
+      <h2>Search for Recipes by Ingredients</h2>
       <form id="form" class="form-horizontal">
         <div class="form-group">
-          <label class="control-label col-sm-2" for="ingredient">Ingredients:</label>
+          <label class="control-label col-sm-2" for="ingredients">Enter Ingredients:</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="ingredient" name="ingredient" placeholder="Enter an ingredient"
-              required>
+            <input type="text" class="form-control" id="ingredients" name="ingredients"
+              placeholder="zucchini broccoli carrots" required>
           </div>
         </div>
         <div class="form-group">
@@ -63,18 +49,20 @@
         })
         .done(function (response) {
           if (response && response.hits.length > 0) {
-            let recipeHtml = `<div class="row h-100">`;
+            let recipeHtml = `<div class="row mx-auto">`;
             response.hits.forEach(function (recipe) {
-              recipeHtml += `<div class="col-md-4">`;
+              recipeHtml += `<div class="col-md-3">`;
               recipeHtml += `<div class="card">`;
               recipeHtml += `<img src="${recipe.recipe.image}" class="card-img-top">`;
               recipeHtml += `<div class="card-body">`
-              recipeHtml += `<h4 class="title">${recipe.recipe.label}</h4><hr>`;
+              recipeHtml +=
+                `<h5 class="title"><a target="_blank" rel="noopener noreferrer" href="${recipe.recipe.shareAs}">${recipe.recipe.label}</a></h5><hr>`;
               recipeHtml +=
                 `<p><span class="num">${Math.floor(recipe.recipe.calories / recipe.recipe.yield)}</span> CALORIES</p><hr>`;
               recipeHtml +=
                 `<p><span class="num">${recipe.recipe.ingredientLines.length}</span> INGREDIENTS</p><hr>`;
-              recipeHtml += `<a href="${recipe.recipe.url}">${recipe.recipe.source}</a>`;
+              recipeHtml +=
+                `<a target="_blank" rel="noopener noreferrer" href="${recipe.recipe.url}">${recipe.recipe.source}</a>`;
               recipeHtml += `</div></div></div>`;
             });
             recipeHtml += '</div>';

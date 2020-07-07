@@ -2,11 +2,20 @@ body {
   background-color: bisque;
 }
 
+#submit {
+  margin-bottom: 20px;
+}
+
 .card {
   background-color: #F7F7F7;
+  display: block;
   border-radius: 10px;
+  width: 250px;
+  height: 500px;
   padding: 10px;
-  margin: 10px;
+  margin-bottom: 20px;
+  margin-right:20px;
+  box-shadow: 0px 0px 8px 0.3px rgba(0, 0, 0, 1);
 }
 
 .card-img-top {
@@ -19,9 +28,4 @@ body {
 
 .num {
   color: #7C0;
-}
-
-.title {
-  width: 100%;
-  height: auto;
 }
