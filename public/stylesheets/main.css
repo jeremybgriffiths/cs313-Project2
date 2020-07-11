@@ -2,6 +2,10 @@ body {
   background-color: bisque;
 }
 
+nav {
+  background-color: lightblue;
+}
+
 #submit {
   margin-bottom: 20px;
 }
