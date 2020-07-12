@@ -51,7 +51,7 @@ const getRecipes = (req, res) => {
 }
 
 const getPersonFromDb = (username, password, callback) => {
-  const query = 'SELECT userId FROM UserAccount WHERE userName = $1 AND userPassword = $2';
+  const query = 'SELECT userId, userName FROM UserAccount WHERE userName = $1 AND userPassword = $2';
   const params = [username, password];
 
   pool.query(query, params, (err, result) => {
@@ -59,6 +59,7 @@ const getPersonFromDb = (username, password, callback) => {
       console.log(err);
       callback(err, null);
     } else {
+      console.log(result.rows);
       callback(null, result.rows);
     }
   });
@@ -67,9 +68,6 @@ const getPersonFromDb = (username, password, callback) => {
 const handleLogin = (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
-  let result = {
-    success: false
-  };
 
   getPersonFromDb(username, password, (err, result) => {
     if (err) {
@@ -85,7 +83,6 @@ const handleLogin = (req, res) => {
       const person = result[0];
       req.session.userId = result[0].userId;
       req.session.userName = result[0].userName;
-      req.session.userPassword = result[0].userPassword;
       res.status(200).json(person);
     }
   });
