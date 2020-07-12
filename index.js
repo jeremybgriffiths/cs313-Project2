@@ -50,21 +50,49 @@ const getRecipes = (req, res) => {
     });
 }
 
+const getPersonFromDb = (username, password, callback) => {
+  const query = 'SELECT userId FROM UserAccount WHERE userName = $1 AND password = $2';
+  const params = [username, password];
+
+  pool.query(query, params, (err, result) => {
+    if (err) {
+      console.log(err);
+      callback(err, null);
+    }
+
+    callback(null, result.rows);
+  });
+}
+
 const handleLogin = (req, res) => {
   let username = req.body.username;
-  let password = req.body.username;
+  let password = req.body.password;
   let result = {
     success: false
   };
 
-  if (username === 'user1' && password === 'user1') {
-    req.session.user = username;
-    result = {
-      success: true
-    };
-  }
-  res.json(result);
+  getPersonFromDb(username, password, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        data: err
+      });
+    } else if (result === null || result.length != 1) {
+      console.log("No results were found");
+      res.send('-1');
+    } else {
+      const person = result[0];
+      req.session.userId = result[0].userId;
+      req.session.userName = result[0].userName;
+      req.session.userPassword = result[0].userPassword;
+      res.status(200).json(person);
+    }
+  });
+  res.end();
 }
+
+
 
 const handleLogout = (req, res) => {
   let result = {
