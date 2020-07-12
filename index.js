@@ -51,7 +51,7 @@ const getRecipes = (req, res) => {
 }
 
 const getPersonFromDb = (username, password, callback) => {
-  const query = 'SELECT userId FROM UserAccount WHERE userName = $1 AND password = $2';
+  const query = 'SELECT userId FROM UserAccount WHERE userName = $1 AND userPassword = $2';
   const params = [username, password];
 
   pool.query(query, params, (err, result) => {
