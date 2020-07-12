@@ -2,25 +2,6 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
-const { Client } = require('pg');
-
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
-
-client.connect();
-
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
-
 const session = require('express-session');
 
 app.use(session({
@@ -51,12 +32,9 @@ app.listen(app.get('port'), () => {
 const {
   Pool
 } = require("pg");
-const {
-  response
-} = require('express');
-const connectionString = process.env.DATABASE_URL;
+
 const pool = new Pool({
-  connectionString: connectionString
+  connectionString: process.env.DATABASE_URL
 });
 
 const getRecipes = (req, res) => {
@@ -78,8 +56,6 @@ const handleLogin = (req, res) => {
   let result = {
     success: false
   };
-
-
 
   if (username === 'user1' && password === 'user1') {
     req.session.user = username;
@@ -105,11 +81,14 @@ const handleLogout = (req, res) => {
 
 const verifyLogin = (req, res, next) => {
   if (req.session.user) {
-		next();
-	} else {
-		var result = {success:false, message: "Access Denied"};
-		res.status(401).json(result);
-	}
+    next();
+  } else {
+    var result = {
+      success: false,
+      message: "Access Denied"
+    };
+    res.status(401).json(result);
+  }
 }
 
 const logRequest = (req, res, next) => {
