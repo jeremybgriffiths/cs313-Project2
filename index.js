@@ -72,7 +72,7 @@ const handleLogin = (req, res) => {
   getPersonFromDb(username, password, (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).json({
+      res.json({
         success: false,
         data: err
       });
@@ -83,7 +83,7 @@ const handleLogin = (req, res) => {
       const person = result[0];
       req.session.userId = result[0].userId;
       req.session.userName = result[0].userName;
-      res.status(200).json(person);
+      res.json(person);
     }
   });
   res.end();
@@ -96,7 +96,7 @@ const handleLogout = (req, res) => {
     success: false
   };
 
-  if (req.session.user) {
+  if (req.session.userName) {
     req.session.destroy();
     result = {
       success: true
