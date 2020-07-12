@@ -58,9 +58,9 @@ const getPersonFromDb = (username, password, callback) => {
     if (err) {
       console.log(err);
       callback(err, null);
+    } else {
+      callback(null, result.rows);
     }
-
-    callback(null, result.rows);
   });
 }
 
