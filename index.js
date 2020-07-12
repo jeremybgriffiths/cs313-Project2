@@ -2,6 +2,25 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+client.connect();
+
+client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
+
 const session = require('express-session');
 
 app.use(session({
@@ -60,14 +79,14 @@ const handleLogin = (req, res) => {
     success: false
   };
 
+
+
   if (username === 'user1' && password === 'user1') {
     req.session.user = username;
     result = {
       success: true
     };
   }
-
-  console.log(req.session.user);
   res.json(result);
 }
 
@@ -82,8 +101,6 @@ const handleLogout = (req, res) => {
       success: true
     };
   }
-
-  res.json(result);
 }
 
 const verifyLogin = (req, res, next) => {
@@ -91,7 +108,7 @@ const verifyLogin = (req, res, next) => {
 		next();
 	} else {
 		var result = {success:false, message: "Access Denied"};
-		response.status(401).json(result);
+		res.status(401).json(result);
 	}
 }
 
@@ -108,5 +125,7 @@ app.get('/recipes', (req, res) => res.render('pages/recipes.ejs'));
 
 app.post('/login', handleLogin);
 app.post('/logout', handleLogout);
+
+app.get('/searchRecipes', verifyLogin, getRecipes);
 
 app.get('/searchRecipes', getRecipes);
