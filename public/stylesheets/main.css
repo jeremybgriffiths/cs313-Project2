@@ -4,6 +4,12 @@ body {
 
 nav {
   background-color: #cbb293;
+  padding: 5px 10px;
+  height: 100%;
+}
+
+nav li {
+  border-left: 1px solid grey;
 }
 
 #submit {
