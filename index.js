@@ -80,8 +80,8 @@ const handleLogin = (req, res) => {
             req.session.userId = result[0].userId;
             req.session.userName = result[0].userName;
             res.status(200).json({
-                person: person,
-                success: true
+                success: true,
+                person: person
             });
         }
     });
