@@ -59,7 +59,6 @@ const getPersonFromDb = (username, password, callback) => {
             console.log(err);
             callback(err, null);
         } else {
-            console.log(result.rows);
             callback(null, result.rows);
         }
     });
@@ -80,7 +79,10 @@ const handleLogin = (req, res) => {
             const person = result[0];
             req.session.userId = result[0].userId;
             req.session.userName = result[0].userName;
-            res.status(200).json(person);
+            res.status(200).json({
+                person: person,
+                success: true
+            });
         }
     });
 }
