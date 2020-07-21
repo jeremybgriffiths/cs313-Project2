@@ -77,8 +77,8 @@ const handleLogin = (req, res) => {
             });
         } else {
             const person = result[0];
-            req.session.userId = person[userId];
-            req.session.userName = person[userName];
+            req.session.userId = person.userId;
+            req.session.userName = person.userName;
 
             console.log(req.session.userName);
 
