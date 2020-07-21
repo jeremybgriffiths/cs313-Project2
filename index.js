@@ -77,6 +77,7 @@ const handleLogin = (req, res) => {
             });
         } else {
             const person = result[0];
+            console.log(person);
             req.session.userId = result[0].userId;
             req.session.userName = result[0].userName;
             res.status(200).json({
@@ -103,7 +104,6 @@ const handleLogout = (req, res) => {
 }
 
 const verifyLogin = (req, res, next) => {
-    console.log(req.session.userName);
     if (req.session.userName) {
         next();
     } else {
