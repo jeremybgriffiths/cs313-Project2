@@ -125,12 +125,12 @@ const logRequest = (req, res, next) => {
 app.use(logRequest);
 
 app.get('/', (req, res) => res.render('pages/index.ejs'));
-app.get('/home', verifyLogin,  (req, res) => res.render('pages/home.ejs'));
-app.get('/recipes', verifyLogin,  (req, res) => res.render('pages/recipes.ejs'));
+app.get('/home', (req, res) => res.render('pages/home.ejs'));
+app.get('/recipes', (req, res) => res.render('pages/recipes.ejs'));
 
 app.post('/login', handleLogin);
 app.post('/logout', handleLogout);
 
-app.get('/searchRecipes', verifyLogin, getRecipes);
+app.get('/searchRecipes', getRecipes);
 
 app.get('/searchRecipes', getRecipes);
