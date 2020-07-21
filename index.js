@@ -77,9 +77,11 @@ const handleLogin = (req, res) => {
             });
         } else {
             const person = result[0];
-            console.log(person);
             req.session.userId = person.userId;
             req.session.userName = person.userName;
+
+            console.log(req.session.userName);
+
             res.status(200).json({
                 success: true,
                 person: person
