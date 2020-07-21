@@ -103,7 +103,7 @@ const handleLogout = (req, res) => {
 }
 
 const verifyLogin = (req, res, next) => {
-    if (req.session.user) {
+    if (req.session.userName) {
         next();
     } else {
         var result = {
