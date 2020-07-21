@@ -78,8 +78,8 @@ const handleLogin = (req, res) => {
         } else {
             const person = result[0];
             console.log(person);
-            req.session.userId = result[0].userId;
-            req.session.userName = result[0].userName;
+            req.session.userId = person.userId;
+            req.session.userName = person.userName;
             res.status(200).json({
                 success: true,
                 person: person
@@ -123,8 +123,8 @@ const logRequest = (req, res, next) => {
 app.use(logRequest);
 
 app.get('/', (req, res) => res.render('pages/index.ejs'));
-app.get('/home', (req, res) => res.render('pages/home.ejs'));
-app.get('/recipes', (req, res) => res.render('pages/recipes.ejs'));
+app.get('/home', verifyLogin,  (req, res) => res.render('pages/home.ejs'));
+app.get('/recipes', verifyLogin,  (req, res) => res.render('pages/recipes.ejs'));
 
 app.post('/login', handleLogin);
 app.post('/logout', handleLogout);
