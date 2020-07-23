@@ -29,14 +29,6 @@ app.listen(app.get('port'), () => {
     console.log('Node app is running on port', app.get('port'));
 });
 
-const {
-    Pool
-} = require("pg");
-
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
-});
-
 const logRequest = (req, res, next) => {
     console.log("Received a request for: " + req.url);
     next();
