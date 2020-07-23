@@ -1,10 +1,5 @@
-const {
-    Pool
-} = require("pg");
-
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
-});
+const { Pool } = require("pg");
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 function getPersonFromDb(username, password, callback) {
     const query = 'SELECT userId, userName FROM UserAccount WHERE userName = $1 AND userPassword = $2';

@@ -1,16 +1,12 @@
+const recipeModel = require('../models/recipeModel.js');
 const axios = require('axios');
 
-function getRecipes(req, res) {
-    const ingredients = req.query.ingredients;
+function getRecipesFromApi(req, res) {
+    recipeModel.getRecipesFromApi;
+}
 
-    const url = `${process.env.API_URL}${process.env.API_ID}${process.env.API_KEY}&to=20&q=${ingredients}`;
-    axios.get(url)
-        .then(response => {
-            res.status(200).json(response.data)
-        })
-        .catch(error => {
-            console.log(error);
-        });
+function getRecipesFromDb(req, res) {
+    recipeModel.getRecipesFromDb;
 }
 
 function saveRecipe(req, res) {
@@ -18,6 +14,7 @@ function saveRecipe(req, res) {
 }
 
 module.exports = {
-    getRecipes: getRecipes,
+    getRecipesFromApi: getRecipesFromApi,
+    getRecipesFromDb: getRecipesFromDb,
     saveRecipe: saveRecipe
 };

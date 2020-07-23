@@ -24,8 +24,6 @@ function handleLogin (req, res) {
     });
 }
 
-
-
 function handleLogout (req, res) {
     let result = {
         success: false
