@@ -16,12 +16,6 @@ nav li {
     margin-bottom: 20px;
 }
 
-#saveRecipe {
-    position: absolute;
-    bottom: 40px;
-    margin-top: 10px;
-}
-
 .card {
     background-color: #F7F7F7;
     display: block;
