@@ -29,7 +29,6 @@ app.listen(app.get('port'), () => {
 
 app.get('/', (req, res) => res.render('pages/index.ejs'));
 app.get('/home', (req, res) => res.render('pages/home.ejs'));
-app.get('/recipes', (req, res) => res.render('pages/recipes.ejs'));
 
 app.post('/login', userController.handleLogin);
 app.post('/logout', userController.handleLogout);
