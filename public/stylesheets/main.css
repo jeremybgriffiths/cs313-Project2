@@ -16,12 +16,18 @@ nav li {
     margin-bottom: 20px;
 }
 
+#saveRecipe {
+    position: absolute;
+    bottom: 40px;
+    margin-top: 10px;
+}
+
 .card {
     background-color: #F7F7F7;
     display: block;
     border-radius: 10px;
     width: 250px;
-    height: 500px;
+    height: 550px;
     padding: 10px;
     margin-bottom: 20px;
     margin-right: 20px;

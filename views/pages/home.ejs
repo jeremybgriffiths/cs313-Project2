@@ -79,6 +79,7 @@
                                 `<p><span class="num">${recipe.recipe.ingredientLines.length}</span> INGREDIENTS</p><hr>`;
                             recipeHtml +=
                                 `<a target="_blank" rel="noopener noreferrer" href="${recipe.recipe.url}">${recipe.recipe.source}</a>`;
+                            recipeHtml += `<div><button id='saveRecipe' class='btn btn-primary'>Save Recipe</button></div>`;
                             recipeHtml += `</div></div></div>`;
                         });
                         recipeHtml += '</div>';
