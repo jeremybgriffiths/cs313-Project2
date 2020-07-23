@@ -35,7 +35,6 @@ app.post('/login', userController.handleLogin);
 app.post('/logout', userController.handleLogout);
 
 app.get('/searchRecipes', recipeController.getRecipesFromApi);
-app.post('/saveRecipe', recipeController.saveRecipe);
 
 function logRequest(req, res, next) {
     console.log("Received a request for: " + req.url);
